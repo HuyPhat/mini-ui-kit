@@ -59,14 +59,14 @@ https://6aeed261bb84ffa434aad5c6-cdwtuurtgx.chromatic.com/
    ```
    CHROMATIC_PROJECT_TOKEN=<your project token>
    ```
-2. Build, load the token, and publish:
+2. Load the token, then build and publish with one command:
    ```bash
-   pnpm build-storybook
    set -a; source .env.local; set +a
-   pnpm dlx chromatic --storybook-build-dir storybook-static
+   pnpm chromatic
    ```
 
-Use `pnpm dlx chromatic`, not `npx chromatic` (it fails with `chroma: command not found`).
+`pnpm chromatic` builds Storybook and publishes `storybook-static` (the `chromatic` package is pinned in `devDependencies`).
+Use it instead of `npx chromatic`, which fails with `chroma: command not found`.
 Chromatic compares every story against the previous build and reports visual changes.
 
 ## Project status
