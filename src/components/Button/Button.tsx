@@ -26,7 +26,7 @@ export function Button({
     .filter(Boolean)
     .join(' ');
   return (
-    <button className={classes} disabled={disabled || loading} aria-busy={loading} {...rest}>
+    <button type="button" {...rest} className={classes} disabled={disabled || loading} aria-busy={loading}>
       <span className={styles.label}>{children}</span>
     </button>
   );
