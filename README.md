@@ -50,6 +50,25 @@ npx vitest run         # story play tests
 
 Storybook has a **Light / Dark** switch in the toolbar and an Accessibility panel on every story.
 
+## Deploy Storybook
+
+Storybook is published to [Chromatic](https://www.chromatic.com):
+https://6aeed261bb84ffa434aad5c6-cdwtuurtgx.chromatic.com/
+
+1. Put the project token in `.env.local` (already ignored by git via `*.local`). Never commit it:
+   ```
+   CHROMATIC_PROJECT_TOKEN=<your project token>
+   ```
+2. Load the token, then build and publish with one command:
+   ```bash
+   set -a; source .env.local; set +a
+   pnpm chromatic
+   ```
+
+`pnpm chromatic` builds Storybook and publishes `storybook-static` (the `chromatic` package is pinned in `devDependencies`).
+Use it instead of `npx chromatic`, which fails with `chroma: command not found`.
+Chromatic compares every story against the previous build and reports visual changes.
+
 ## Project status
 
 Known follow-ups are tracked in [`REVIEW_TODO.md`](REVIEW_TODO.md).
