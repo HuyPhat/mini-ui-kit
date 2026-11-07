@@ -40,6 +40,12 @@ jobs:
             exit 1
           fi
 
+      # Story play tests run in a real browser, so the runner needs Playwright's Chromium.
+      - name: Install Playwright browser
+        run: pnpm exec playwright install --with-deps chromium
+
+      - run: pnpm test
+
       - run: pnpm build-storybook
 
       # Visual changes do not fail the job; review them in the Chromatic "UI Review" check.

@@ -29,6 +29,8 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   play: async ({ canvas }) => {
     await expect(canvas.getByRole('heading', { level: 3, name: 'Card title' })).toBeInTheDocument();
+    // <section> is only a landmark (role "region") when it has an accessible name.
+    await expect(canvas.getByRole('region', { name: 'Card title' })).toBeInTheDocument();
   },
 };
 
