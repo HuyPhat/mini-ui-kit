@@ -21,9 +21,10 @@
 
 .danger { background: var(--color-danger); color: var(--color-on-primary); }
 
-/* Label stays in layout (hidden) so the button keeps its width while loading. */
+/* Label stays in layout and in the a11y tree (opacity, not visibility) so the
+   button keeps its width and accessible name while loading. */
 .loading { position: relative; }
-.loading .label { visibility: hidden; }
+.loading .label { opacity: 0; }
 .loading::before {
   content: '';
   position: absolute;
