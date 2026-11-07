@@ -16,9 +16,9 @@ Already done: `App` theme effect, `Button` default `type="button"`, prop-spread 
   while `loading` is true.
 - [ ] **Card landmark** (`Card.tsx`): `<section>` has no accessible name. Link it to its heading with
   `aria-labelledby` (use `useId`, as `Input` does).
-- [ ] **Pin devDependencies** (`package.json`): `@chromatic-com/storybook`, `vitest`,
-  `@vitest/browser-playwright`, `@vitest/coverage-v8` and `playwright` are `"latest"` while Storybook is
-  pinned to `10.6.5`. Pin them to exact versions.
+- [ ] **Pin devDependencies** (`package.json`): `vitest`, `@vitest/browser-playwright`,
+  `@vitest/coverage-v8` and `playwright` are `"latest"` while Storybook is pinned to `10.6.5`.
+  Pin them to exact versions. (`@chromatic-com/storybook` is already pinned to `5.6.0`.)
 - [ ] **`test` script** (`package.json`): the story `play` tests only run via `npx vitest run`.
   Add `"test": "vitest run"` so CI can run them.
 
