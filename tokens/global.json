@@ -1,0 +1,22 @@
+{
+  "space": {
+    "$type": "dimension",
+    "1": { "$value": "4px" },
+    "2": { "$value": "8px" },
+    "3": { "$value": "12px" },
+    "4": { "$value": "16px" },
+    "6": { "$value": "24px" }
+  },
+  "radius": {
+    "md": { "$type": "dimension", "$value": "8px" }
+  },
+  "font": {
+    "family": { "$type": "fontFamily", "$value": "system-ui, sans-serif" },
+    "size": {
+      "$type": "dimension",
+      "sm": { "$value": "14px" },
+      "md": { "$value": "16px" },
+      "lg": { "$value": "18px" }
+    }
+  }
+}

@@ -1,0 +1,50 @@
+name: Tokens, Storybook & Chromatic
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  storybook:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Chromatic needs the git history
+
+      - uses: pnpm/action-setup@v4 # version comes from "packageManager" in package.json
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      # Detects token changes: regenerate the CSS and fail if it differs from what is committed.
+      - name: Generate tokens and check they are committed
+        run: |
+          pnpm tokens
+          if [ -n "$(git status --porcelain -- src/tokens/generated)" ]; then
+            echo "::error::src/tokens/generated is out of date. Run 'pnpm tokens' and commit the result."
+            git diff -- src/tokens/generated
+            exit 1
+          fi
+
+      - run: pnpm build-storybook
+
+      # Visual changes do not fail the job; review them in the Chromatic "UI Review" check.
+      # Changes on main are accepted automatically (they were reviewed on the PR).
+      - name: Publish to Chromatic
+        run: pnpm exec chromatic --storybook-build-dir storybook-static --exit-zero-on-changes --auto-accept-changes main
+        env:
+          CHROMATIC_PROJECT_TOKEN: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}

@@ -1,0 +1,13 @@
+{
+  "color": {
+    "$type": "color",
+    "bg": { "$value": "{green.50}" },
+    "surface": { "$value": "{green.100}" },
+    "text": { "$value": "{gray.900}" },
+    "border": { "$value": "{green.200}" },
+    "primary": { "$value": "{green.700}" },
+    "primary-hover": { "$value": "{green.800}" },
+    "on-primary": { "$value": "{gray.0}" },
+    "danger": { "$value": "{red.600}" }
+  }
+}
