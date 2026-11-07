@@ -34,4 +34,12 @@ export const Danger: Story = { args: { variant: 'danger', children: 'Danger' } }
 export const Large: Story = { args: { size: 'lg' } };
 export const Small: Story = { args: { size: 'sm' } };
 export const Disabled: Story = { args: { disabled: true } };
-export const Loading: Story = { args: { loading: true } };
+export const Loading: Story = {
+  args: { loading: true },
+  play: async ({ canvas }) => {
+    // The visible label is faded out, so "Loading" must be part of the accessible name.
+    const button = canvas.getByRole('button', { name: /loading/i });
+    await expect(button).toBeDisabled();
+    await expect(button).toHaveAttribute('aria-busy', 'true');
+  },
+};

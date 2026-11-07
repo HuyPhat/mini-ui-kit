@@ -28,6 +28,8 @@ export function Button({
   return (
     <button type="button" {...rest} className={classes} disabled={disabled || loading} aria-busy={loading}>
       <span className={styles.label}>{children}</span>
+      {/* Part of the accessible name. A role="status" here would be ignored: a button's children are presentational. */}
+      {loading && <span className={styles.srOnly}>Loading</span>}
     </button>
   );
 }

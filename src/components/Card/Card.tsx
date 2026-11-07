@@ -1,4 +1,4 @@
-import type { HTMLAttributes, ReactNode } from 'react';
+import { useId, type HTMLAttributes, type ReactNode } from 'react';
 import styles from './Card.module.css';
 
 export interface CardProps extends Omit<HTMLAttributes<HTMLElement>, 'title'> {
@@ -15,9 +15,10 @@ export function Card({
   ...rest
 }: CardProps) {
   const Heading = `h${headingLevel}` as const;
+  const titleId = useId();
   return (
-    <section className={[styles.card, className].filter(Boolean).join(' ')} {...rest}>
-      <Heading className={styles.title}>{title}</Heading>
+    <section {...rest} className={[styles.card, className].filter(Boolean).join(' ')} aria-labelledby={titleId}>
+      <Heading id={titleId} className={styles.title}>{title}</Heading>
       {children}
     </section>
   );
