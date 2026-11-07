@@ -32,9 +32,24 @@ The title keeps the same font size at every level.
 
 ## Design tokens
 
-Tokens live in [`src/tokens/tokens.css`](src/tokens/tokens.css) as CSS variables
+Tokens are defined as W3C DTCG JSON in [`tokens/`](tokens) (designed in Figma Variables, see
+[`docs/figma-variables.md`](docs/figma-variables.md)) and built with [Style Dictionary](https://styledictionary.com):
+
+```bash
+pnpm tokens   # tokens/*.json -> src/tokens/generated/*.css (commit the result)
+```
+
+[`src/tokens/tokens.css`](src/tokens/tokens.css) imports the generated CSS variables
 (`--color-*`, `--space-*`, `--radius-md`, `--font-*`). Import it once in your app.
-Set `data-theme="dark"` on `<html>` to switch to the dark theme; only the semantic tokens change.
+Do not edit `src/tokens/generated/` by hand.
+
+Themes are selected with `data-theme` on `<html>`; only the semantic tokens change:
+
+| Theme | Selector | Notes |
+|---|---|---|
+| Light | `:root` (default) | |
+| Dark | `data-theme="dark"` | |
+| Brand | `data-theme="brand"` | Green primary (`#15803d`) with green-tinted background and surface |
 
 ## Getting started
 
@@ -54,6 +69,11 @@ Storybook has a **Light / Dark** switch in the toolbar and an Accessibility pane
 
 Storybook is published to [Chromatic](https://www.chromatic.com):
 https://6aeed261bb84ffa434aad5c6-cdwtuurtgx.chromatic.com/
+
+GitHub Actions ([`.github/workflows/storybook.yml`](.github/workflows/storybook.yml)) does this on every pull request
+and push to `main`: it regenerates the tokens and **fails if `src/tokens/generated/` differs from what is committed**
+(run `pnpm tokens` and commit), builds Storybook, and publishes it to Chromatic. It needs the repository secret
+`CHROMATIC_PROJECT_TOKEN`. To publish by hand instead:
 
 1. Put the project token in `.env.local` (already ignored by git via `*.local`). Never commit it:
    ```
